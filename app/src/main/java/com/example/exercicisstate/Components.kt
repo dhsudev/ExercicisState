@@ -12,17 +12,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun NumberField(text : String , modifier: Modifier) : String{
+fun NumberField(text: String, decimals: Boolean = false, modifier: Modifier): String {
     var myText by remember { mutableStateOf("") }
-    val pattern = remember { Regex("^\\d+\$") }
+
+    val pattern = if (decimals) {
+        Regex("^\\d*\\.?\\d*\$") // Permite números con o sin decimales
+    } else {
+        Regex("^\\d+\$") // Solo números enteros
+    }
+
     TextField(
         value = myText,
         onValueChange = {
-            if (it.isEmpty() || it.matches(pattern)) myText = it
+            if (it.isEmpty() || it.matches(pattern)) {
+                myText = it
+            }
         },
         label = { Text(text) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), // Cambiar a Decimal
         modifier = modifier
     )
-    return myText;
+
+    return myText
 }

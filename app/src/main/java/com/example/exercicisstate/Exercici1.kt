@@ -1,6 +1,7 @@
 package com.example.exercicisstate
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,9 +17,15 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.exercicisstate.ui.theme.ExercicisStateTheme
 
+fun calculaPropina(strtotal: String, strpercentage: String): Double {
+    val total: Int = Integer.parseInt(strtotal)
+    val percentatge: Int = Integer.parseInt(strpercentage)
+    return total + (total * (percentatge / 100.0))
+}
+
 
 @Composable
-fun ViewEx1(modifier : Modifier) {
+fun ViewEx1(modifier: Modifier) {
     var showResult by remember { mutableStateOf(false) }
     ConstraintLayout(
         modifier
@@ -42,7 +49,9 @@ fun ViewEx1(modifier : Modifier) {
                     bottom.linkTo(fieldTotal.top, margin = 40.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                })
+                }
+                .width(350.dp)
+        )
         val total =
             NumberField("Total del menu", modifier = Modifier.constrainAs(fieldTotal) {
                 top.linkTo(parent.top)
@@ -71,11 +80,13 @@ fun ViewEx1(modifier : Modifier) {
             val textTotal = "Total: ${calculaPropina(total, percentage)} €"
             Text(
                 text = textTotal,
-                modifier = Modifier.constrainAs(result) {
-                    top.linkTo(button.bottom, margin = 10.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
+                modifier = Modifier
+                    .constrainAs(result) {
+                        top.linkTo(button.bottom, margin = 10.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                    .width(350.dp)
             )
         }
     }
@@ -83,16 +94,9 @@ fun ViewEx1(modifier : Modifier) {
 
 }
 
-fun calculaPropina(strtotal: String, strpercentage: String): Double {
-    val total : Int = Integer.parseInt(strtotal)
-    val percentatge : Int = Integer.parseInt(strpercentage)
-    return total + (total * (percentatge / 100.0))
-}
-
-
 @Preview(showBackground = true)
 @Composable
-fun Hola() {
+fun ViewUI1() {
     ExercicisStateTheme {
         ViewEx1(Modifier)
     }

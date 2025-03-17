@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ExercicisStateTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ViewEx1(modifier = Modifier.padding(innerPadding))
+                    ViewEx5(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
